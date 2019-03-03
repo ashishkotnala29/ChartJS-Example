@@ -16,6 +16,25 @@ var chartColor = [
 		'rgb(153, 102, 255)', //purple
 		'rgb(201, 203, 207)' //grey
 	];
+var yLabels = {
+		'0' : 'newb',
+	    '2' : 'codecademy',
+	    '4' : 'code-school',
+	    '6' : 'bootcamp',
+	    '8' : 'junior-dev',
+	    '10' : 'mid-level',
+	    '12' : 'senior-dev',
+	    '14' : 'full-stack-dev',
+	    '16' : 'famous-speaker',
+	    '18' : 'unicorn',
+	    '20' : 'harambe'
+	};
+function myfunc(e){
+	var f = [];
+	for(var k=0; k<e.length; k++)
+		f.push(e[k].split(",",1));
+	return f;
+}
 </script>
 <style>
 table ,tr, td,th {
@@ -35,7 +54,7 @@ table ,tr, td,th {
     </tr>
     <tr>
         <th>France</th>
-        <td>4853</td>
+        <td>4,853</td>
         <td>81.8</td>
         <td>375</td>
         <td>66836154</td>
@@ -43,7 +62,7 @@ table ,tr, td,th {
     </tr>
     <tr>
         <th>Germany</th>
-        <td>2389</td>
+        <td>2,389</td>
         <td>80.7</td>
         <td>263</td>
         <td>80722792</td>
@@ -51,7 +70,7 @@ table ,tr, td,th {
     </tr>
     <tr>
         <th>Italy</th>
-        <td>7600</td>
+        <td>7,600</td>
         <td>82.2</td>
         <td>538</td>
         <td>62007540</td>
@@ -59,7 +78,7 @@ table ,tr, td,th {
     </tr>
     <tr>
         <th>UK</th>
-        <td>12429</td>
+        <td>12,429</td>
         <td>80.7</td>
         <td>162</td>
         <td>64430428</td>
@@ -115,7 +134,7 @@ function showHideChart(btn) {
 		        labels: tableTime,
 		        datasets: [{
 		            label: tableLab[i],
-		            data: e,
+		            data: (i != 0)?e:myfunc(e),
 		            fill: false,
 		            backgroundColor: chartColor[i],
 		            borderColor: chartColor[i],
@@ -145,10 +164,16 @@ function showHideChart(btn) {
 		            	scaleLabel: {
 							display: true,
 							labelString: 'Value'
-						}/* ,
+						},
 		                ticks: {
-		                    beginAtZero:true
-		                } */
+		                    //beginAtZero:true,
+		                    callback: function(value, index, values) {
+		                    	if(i==0)
+                        			return yLabels[value];
+		                    	else
+		                    		return value;
+                    		}
+		                }
 		            }]
 		        }
 		    }
